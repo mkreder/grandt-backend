@@ -29,7 +29,7 @@ def upgrade():
         sa.Column("id", sa.Integer, primary_key=True),
         sa.Column("name", sa.String, nullable=False),
         sa.Column("country", sa.String, nullable=False),
-        sa.Column("position", sa.Enum("arquero", "defensor", "mediocampista", "delantero", name="position"), nullable=False),
+        sa.Column("position", sa.Enum("arquero", "defensor", "mediocampista", "delantero", name="position_enum"), nullable=False),
     )
 
     op.create_table(
