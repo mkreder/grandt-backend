@@ -38,7 +38,7 @@ class Player(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
     country = Column(String, nullable=False)
-    position = Column(Enum(Position), nullable=False)
+    position = Column(Enum(Position, values_callable=lambda x: [e.value for e in x], name="position_enum", create_type=False), nullable=False)
 
 
 class MatchDay(Base):
