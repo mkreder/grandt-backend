@@ -1,6 +1,0 @@
-name: grandt-infra
-runtime:
-  name: python
-  options:
-    virtualenv: venv
-description: GranDT Mundial infrastructure
