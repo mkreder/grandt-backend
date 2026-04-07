@@ -7,6 +7,12 @@ def create_apigw(alb_out):
 
     api = aws.apigatewayv2.Api("grandt-api",
         protocol_type="HTTP",
+        cors_configuration={
+            "allow_origins": ["https://main.d31vfa09xrom3x.amplifyapp.com"],
+            "allow_methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+            "allow_headers": ["Content-Type", "Authorization"],
+            "max_age": 86400,
+        },
     )
 
     integration = aws.apigatewayv2.Integration("core-integration",
