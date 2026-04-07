@@ -1,3 +1,7 @@
 config:
   aws:region: us-east-1
+  grandt-infra:db_password:
+    secure: v1:e8Rtdd/nqRicedda:QZWalmpHUmc8VxZbEltXkWFCCQg6g1L7raXuMF3l76s/WEoxZAaM6Q==
+  grandt-infra:secret_key:
+    secure: v1:O1vu5Re7I/oqNsYC:6VW5X5pYNeYasXXZKCHTiKngNxpQMkKuTAaR8rdvcq5vKVp/5Dwlotcn01UyjxJTLjdfcVDH63jo5TaV8cZZiwxArEWVfmVhZwq9UvOvNCY=
 encryptionsalt: v1:HLgBhTAiSsg=:v1:tn+Pw+GQMGWlN2UD:t3Vjswtt7dr5KyyWE4iJiRlaWwfGyg==

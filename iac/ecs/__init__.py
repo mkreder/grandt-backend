@@ -3,12 +3,18 @@ import pulumi
 import pulumi_aws as aws
 
 
-def create_ecs(network, ecr_out, alb_out):
+def create_ecs(network, ecr_out, alb_out, rds_out):
+    config = pulumi.Config()
+    secret_key = config.require_secret("secret_key")
+
     vpc = network["vpc"]
     private_subnets = network["private_subnets"]
     repo = ecr_out["repository"]
     tg = alb_out["target_group"]
     alb_sg = alb_out["security_group"]
+
+    db_endpoint = rds_out["endpoint"]
+    db_password = rds_out["password"]
 
     cluster = aws.ecs.Cluster("grandt-cluster")
 
@@ -51,10 +57,16 @@ def create_ecs(network, ecr_out, alb_out):
         requires_compatibilities=["FARGATE"],
         execution_role_arn=exec_role.arn,
         task_role_arn=task_role.arn,
-        container_definitions=repo.repository_url.apply(lambda url: json.dumps([{
+        container_definitions=pulumi.Output.all(
+            repo.repository_url, db_endpoint, db_password, secret_key
+        ).apply(lambda args: json.dumps([{
             "name": "backend",
-            "image": f"{url}:latest",
+            "image": f"{args[0]}:latest",
             "portMappings": [{"containerPort": 8000, "protocol": "tcp"}],
+            "environment": [
+                {"name": "DATABASE_URL", "value": f"postgresql://grandt:{args[2]}@{args[1]}:5432/grandt"},
+                {"name": "SECRET_KEY", "value": args[3]},
+            ],
             "logConfiguration": {
                 "logDriver": "awslogs",
                 "options": {

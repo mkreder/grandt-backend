@@ -5,11 +5,13 @@ from alb import create_alb
 from ecs import create_ecs
 from apigw import create_apigw
 from pipeline import create_pipeline
+from rds import create_rds
 
 network = create_vpc()
 ecr_out = create_ecr()
 alb_out = create_alb(network)
-ecs_out = create_ecs(network, ecr_out, alb_out)
+rds_out = create_rds(network)
+ecs_out = create_ecs(network, ecr_out, alb_out, rds_out)
 apigw_out = create_apigw(alb_out)
 pipeline_out = create_pipeline(ecr_out, ecs_out)
 
@@ -19,3 +21,4 @@ pulumi.export("alb_dns", alb_out["alb"].dns_name)
 pulumi.export("api_endpoint", apigw_out["api"].api_endpoint)
 pulumi.export("ecs_cluster", ecs_out["cluster"].name)
 pulumi.export("github_connection_arn", pipeline_out["connection"].arn)
+pulumi.export("db_endpoint", rds_out["endpoint"])
