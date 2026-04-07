@@ -28,6 +28,13 @@ def create_ecs(network, ecr_out, alb_out):
         role=exec_role.name,
         policy_arn="arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy",
     )
+    aws.iam.RolePolicy("ecs-exec-logs-policy",
+        role=exec_role.id,
+        policy=json.dumps({
+            "Version": "2012-10-17",
+            "Statement": [{"Effect": "Allow", "Action": ["logs:CreateLogGroup"], "Resource": "*"}],
+        }),
+    )
 
     task_role = aws.iam.Role("ecs-task-role",
         assume_role_policy=json.dumps({
