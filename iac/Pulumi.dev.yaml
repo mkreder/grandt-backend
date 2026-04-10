@@ -1,0 +1,8 @@
+encryptionsalt: v1:s6OUQpGFUH4=:v1:QHztkdwKdMpsP5g+:QBfLT/r6hfuHgsIq21kgLNw+AH+gpg==
+config:
+  aws:region: us-east-1
+  aws:profile: personal
+  grandt-backend:db_password:
+    secure: v1:fKNhY190VvmfdSiQ:i39uwb3nFnnP6fe32tZRjM8rco+Mrtxpsk7PD71DEeBmROxmoj3fGf/RnghcGq1HRzzW
+  grandt-backend:secret_key:
+    secure: v1:k+LBM8KsY61tJ8Ph:jkKUXlnyIwQbwUti/bYQ+TAdJAdqHZ6i3IhTFXyjzfWJiWaiEGmPgUymcZuR1hHNbRbXUH7pvQ==
